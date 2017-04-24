@@ -1,0 +1,14 @@
+<% submit_value = action_url == session_url ? "Sign In" : "Sign Up" %>
+
+<form class="" action="<%= action_url %>" method="POST">
+  <%= auth_token %>
+  <label for="username">Username 🗣 </label>
+  <input id="username" type="text" name="user[username]" value="<%= @user.username %>">
+  <br>
+
+  <label for="password">Password 🤔 </label>
+  <input id="password" type="password" name="user[password]" value="">
+  <br>
+
+  <input type="submit" name="" value="<%= submit_value%> 😄">
+</form>
