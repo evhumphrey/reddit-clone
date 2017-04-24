@@ -12,5 +12,5 @@
 !/log/.keep
 /tmp
 
-*.lock 
-
+*.lock
+.byebug*
