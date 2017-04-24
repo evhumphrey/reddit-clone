@@ -1,5 +1,7 @@
 class SubsController < ApplicationController
 
+  before_action :require_mod, only: [:edit, :update, :destroy]
+
   def new
     # any creation actions must verify that user is logged in
     if logged_in?
@@ -49,12 +51,6 @@ class SubsController < ApplicationController
         redirect_to subs_url
         return
       end
-      if current_user == @sub.moderator
-        render :edit
-      else
-        flash.now[:errors] = [" 🚫 Can't edit sub unless you're the moderator 🚫 "]
-        render :show
-      end
     else
       redirect_to new_session_url
     end
@@ -79,14 +75,8 @@ class SubsController < ApplicationController
   def destroy
     if logged_in?
       @sub = Sub.find_by(id: params[:id])
-
-      if current_user == @sub.moderator
-        @sub.destroy
-        redirect_to subs_url
-      else
-        flash.now[:errors] = [" 🚫 Can't delete sub unless you're the moderator 🚫 "]
-        render :show
-      end
+      @sub.destroy
+      redirect_to subs_url
     else
       redirect_to new_session_url
     end
@@ -96,5 +86,14 @@ class SubsController < ApplicationController
 
   def sub_params
     params.require(:sub).permit(:title, :description)
+  end
+
+  def require_mod
+    @sub = Sub.find_by(id: params[:id])
+    if current_user != @sub.moderator
+      flash.now[:errors] = [" 🚫 Must be moderator 🚫 "]
+      render :show
+      return
+    end
   end
 end
