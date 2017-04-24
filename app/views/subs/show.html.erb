@@ -1,10 +1,11 @@
-<section id="link-page">
+<section id="sub-page">
   <h1><%= @sub.title %></h1>
   <h2>Description</h2>
   <p><%= @sub.description %></p>
   <%= link_to "Edit Sub", edit_sub_url(@sub) %>
   <%= button_to "Delete Sub", sub_url(@sub), method: :delete %>
-  <ul id="subs-list">
+  <%= link_to "Make New Post! 📋", new_post_url(sub_id: @sub.id) %>
+  <ul id="posts-list">
   <%#= render @link.comments %>
   </ul>
 </section>

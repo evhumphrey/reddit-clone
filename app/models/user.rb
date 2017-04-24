@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   validates :username, uniqueness: true
 
   has_many :subs
+  has_many :posts
 
   after_initialize :ensure_session_token
 
