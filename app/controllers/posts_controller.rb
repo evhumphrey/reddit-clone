@@ -60,8 +60,16 @@ class PostsController < ApplicationController\
     end
   end
 
-  # moderator only
-  def delete
+  # author only
+  def destroy
+    post = Post.find_by(id: params[:id])
+    if current_user == post.author
+      post.destroy
+      redirect_to subs_url
+    else
+      flash.now[:errors] = [" 🚫 Can't edit someone else's posts 🚫 "]
+      render :show
+    end
   end
 
   private

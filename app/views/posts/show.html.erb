@@ -2,7 +2,7 @@
   <h1><%= link_to "#{@post.title}", "http://#{@post.url}" %> by <%= @author %></h1>
   <section id="post-content">
     <p>Content:
-    <% if @post.content %>
+    <% if @post.content != "" %>
       <%= @post.content %>
     <% else %>
       <i><%= "~ Content not provided by author ~" %></i>

@@ -38,6 +38,7 @@ group :development, :test do
   gem 'binding_of_caller'
   gem 'byebug'
   gem 'pry-rails'
+  gem 'faker'
 end
 
 group :development do
