@@ -8,12 +8,14 @@
 </head>
 <body>
 
-<section id="user_info">
+<nav id="user_info">
 <% if current_user %>
   <p>Hello, <%= current_user.username %>! 🙌</p>
   <%= button_to "Sign Out 👋", session_url, method: :delete %>
+<% else %>
+  <%= link_to "Sign In! 😄", new_session_url %>
 <% end %>
-</section>
+</nav>
 
 <section id="errors">
   <% if flash[:errors] %>
