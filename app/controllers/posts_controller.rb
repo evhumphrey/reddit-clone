@@ -13,7 +13,7 @@ class PostsController < ApplicationController\
     @post.author = current_user
 
     if @post.save
-      redirect_to post_url(@post.sub)
+      redirect_to post_url(@post)
     else
       flash.now[:errors] = @post.errors.full_messages
       render :new
@@ -33,9 +33,31 @@ class PostsController < ApplicationController\
 
   # author only
   def edit
+    @post = Post.find_by(id: params[:id])
+
+    if current_user == @post.author
+      render :edit
+    else
+      render.now[:errors] = [" 🚫 Can't edit someone else's posts 🚫 "]
+      render :show
+    end
   end
 
   def update
+    @post = Post.find_by(id: params[:id])
+
+    if current_user == @post.author
+      if @post.update_attributes(post_params)
+        @post.update(post_params)
+        redirect_to post_url(@post)
+      else
+        flash.now[:errors] = @post.errors.full_messages
+        render :edit
+      end
+    else
+      render[:errors] = [" 🚫 Can't edit someone else's posts 🚫 "]
+      redirect_to post_url(@post)
+    end
   end
 
   # moderator only

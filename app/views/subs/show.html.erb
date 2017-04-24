@@ -1,12 +1,20 @@
 <section id="sub-page">
   <h1><%= @sub.title %></h1>
-  <h2>Description</h2>
+  <h3>Description</h3>
   <p><%= @sub.description %></p>
-  <%= link_to "Edit Sub", edit_sub_url(@sub) %>
-  <%= button_to "Delete Sub", sub_url(@sub), method: :delete %>
   <!-- line below passes params[:sub_id] = @sub.id to the new post form -->
   <%= link_to "Make New Post! 📋", new_post_url(sub_id: @sub.id) %>
+  <h3>Posts</h3>
   <ul id="posts-list">
-  <%#= render @link.comments %>
+    <%= render @sub.posts %>
   </ul>
+
+  <% if @sub.moderator == current_user %>
+    <h3>🛡 Mod tools 🛡</h3>
+    <ul id="mod-tools">
+      <li><%= link_to "Edit Sub", edit_sub_url(@sub) %></li>
+      <li><%= button_to "Delete Sub", sub_url(@sub), method: :delete %></li>
+    </ul>
+  <% end %>
+
 </section>
