@@ -1,0 +1,6 @@
+<section id="post-page">
+  <h1><%= link_to "#{@post.title}", @post.url %> by <%= @author %></h1>
+  <!-- TODO hide from non-authors -->
+  <%= link_to "Edit Post", edit_post_url(@post) %>  
+  <%= button_to "Delete Post", post_url(@post), method: :delete %>
+</section>

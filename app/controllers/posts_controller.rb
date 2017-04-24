@@ -10,7 +10,10 @@ class PostsController < ApplicationController\
 
   def create
     @post = Post.new(post_params)
+    @post.author = current_user
+
     if @post.save
+      redirect_to post_url(@post.sub)
     else
       flash.now[:errors] = @post.errors.full_messages
       render :new
@@ -18,6 +21,14 @@ class PostsController < ApplicationController\
   end
 
   def show
+    @post = Post.find_by(id: params[:id])
+    @author = @post.author.username
+    if @post
+      render :show
+    else
+      flash[:errors] = cant_find_resource("post")
+      redirect_to subs_url
+    end
   end
 
   # author only

@@ -4,6 +4,7 @@
   <p><%= @sub.description %></p>
   <%= link_to "Edit Sub", edit_sub_url(@sub) %>
   <%= button_to "Delete Sub", sub_url(@sub), method: :delete %>
+  <!-- line below passes params[:sub_id] = @sub.id to the new post form -->
   <%= link_to "Make New Post! 📋", new_post_url(sub_id: @sub.id) %>
   <ul id="posts-list">
   <%#= render @link.comments %>

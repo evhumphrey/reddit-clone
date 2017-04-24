@@ -27,4 +27,8 @@ class ApplicationController < ActionController::Base
       redirect_to new_session_url
     end
   end
+
+  def cant_find_resource(name)
+    [" 🕵️ Can't find #{name} you're looking for 🕵️‍♀️ "]
+  end
 end

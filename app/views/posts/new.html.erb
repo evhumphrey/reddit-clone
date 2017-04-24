@@ -14,6 +14,7 @@
     <textarea id="content" name="post[description]"><%= @post.content %></textarea>
     <input type="submit" name="" value="Create New Post">
 
+    <!-- gets sub_id from the params in link_to on sub show page -->
     <input type="hidden" name="post[sub_id]" value="<%= params[:sub_id] %>">
   </form>
 </section>
