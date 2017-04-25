@@ -1,5 +1,6 @@
 <section id="post-page">
-  <h1><%= link_to "#{@post.title}", "http://#{@post.url}" %> by <%= @author %></h1>
+  <% url = @post.url == "" ? "#{@post.url}".html_safe : "http://#{@post.url}".html_safe%>
+  <h1><%= link_to "#{@post.title}", url %> by <%= @author %></h1>
   <section id="post-content">
     <p>Content:
     <% if @post.content != "" %>
@@ -12,8 +13,9 @@
 
   <section id="post-subs">
     <h3>Subs</h3>
-    <ul><li><%= link_to "#{@post.sub.title}", sub_url(@post.sub) %></li></ul>
-    <!-- <%#= render @post.subs %>  TODO -->
+    <ul>
+      <%= render @post.subs %>
+    </ul>
   </section>
 
   <% if @post.author == current_user %>

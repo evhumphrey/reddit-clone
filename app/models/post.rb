@@ -13,12 +13,16 @@
 #
 
 class Post < ActiveRecord::Base
-  validates :title, :sub, :author, presence: true
+  validates :title, :subs, :author, presence: true
 
   belongs_to :sub
   belongs_to :author,
     primary_key: :id,
     foreign_key: :user_id,
     class_name: :User
+
+  has_many :post_subs, inverse_of: :post
+  has_many :subs, through: :post_subs, source: :sub
+
 
 end

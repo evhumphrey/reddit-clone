@@ -3,14 +3,17 @@ class PostsController < ApplicationController\
   before_action :require_login, except: [:show]
 
   def new
+
     @post = Post.new
-    @sub = params[:id]
+    @sub = params[:sub_id]
+    @subs = Sub.all
     render :new
   end
 
   def create
     @post = Post.new(post_params)
     @post.author = current_user
+    @subs = Sub.all
 
     if @post.save
       redirect_to post_url(@post)
@@ -22,6 +25,7 @@ class PostsController < ApplicationController\
 
   def show
     @post = Post.find_by(id: params[:id])
+
     @author = @post.author.username
     if @post
       render :show
@@ -34,6 +38,8 @@ class PostsController < ApplicationController\
   # author only
   def edit
     @post = Post.find_by(id: params[:id])
+    @subs = Sub.all
+    
 
     if current_user == @post.author
       render :edit
@@ -45,6 +51,7 @@ class PostsController < ApplicationController\
 
   def update
     @post = Post.find_by(id: params[:id])
+    @subs = Sub.all
 
     if current_user == @post.author
       if @post.update_attributes(post_params)
@@ -75,7 +82,7 @@ class PostsController < ApplicationController\
   private
 
   def post_params
-    params.require(:post).permit(:title, :url, :content, :sub_id)
+    params.require(:post).permit(:title, :url, :content, :sub_id, sub_ids: [])
   end
 
 end

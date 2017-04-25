@@ -15,6 +15,14 @@
     <textarea id="content" name="post[content]"><%= @post.content %></textarea>
     <br>
 
+    <h3>Cross Post to Subs: </h3>
+    <input type="hidden" name="post[sub_ids][]" value="">
+    <% @subs.each do |sub| %>
+    <label><input type="checkbox" name="post[sub_ids][]" value="<%= sub.id  %>" <%= "checked" if @post.sub_ids.include?(sub.id)%>> <%= sub.title %></label><br>
+    <% end %>
+
+    <br>
+
     <input type="submit" name="" value="Update Post">
 
     <!-- gets sub_id from the params in link_to on sub show page -->

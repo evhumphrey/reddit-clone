@@ -19,5 +19,7 @@ class Sub < ActiveRecord::Base
     foreign_key: :user_id,
     class_name: :User
 
-  has_many :posts, dependent: :destroy
+  # has_many :posts, dependent: :destroy
+  has_many :post_subs, inverse_of: :sub
+  has_many :posts, dependent: :destroy, through: :post_subs, source: :post
 end
